@@ -1,0 +1,16 @@
+package Tagger;
+
+import Reader.DBReader;
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		DBReader reader = new DBReader();
+		reader.readFile("resources/wp.sql");
+		
+	}
+
+}
