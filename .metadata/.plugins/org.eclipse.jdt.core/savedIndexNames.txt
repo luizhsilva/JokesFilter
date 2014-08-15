@@ -5,11 +5,9 @@ INDEX VERSION 1.126+/Users/Gee/Desktop/JokesFilter/.metadata/.plugins/org.eclips
 244861778.index
 1271342938.index
 3298360866.index
-3838248434.index
 3906071460.index
 277233347.index
 3199366301.index
 2824198790.index
 478214918.index
-1886705517.index
 4238209716.index
