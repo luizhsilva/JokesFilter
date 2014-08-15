@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.sql.*;
 
-import com.mysql.jdbc.Connection;
 
 
 public class DBReader {
