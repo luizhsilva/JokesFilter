@@ -1,3 +1,2 @@
-2014-08-14 19:13:00.788 [Worker-0] INFO    com.objectaid.uml.license.LicenseManager initialize: found license Sequence Diagram 1.1.x - EVAL until 2014-01-14
-2014-08-14 19:13:56.347 [Worker-4] INFO    com.objectaid.uml.model.manage.DiagramManager getFactories: com.objectaid.uml.diagramFactories[ucls]: com.objectaid.uml.cls.model.ClassDiagramFactory@2495223b
-2014-08-14 19:13:56.370 [Worker-4] INFO    com.objectaid.uml.model.manage.DiagramManager getFactories: com.objectaid.uml.diagramFactories[useq]: com.objectaid.uml.seq.model.SequenceDiagramFactory@3f14b553
+2014-08-15 10:55:10.491 [Worker-3] INFO    com.objectaid.uml.model.manage.DiagramManager getFactories: com.objectaid.uml.diagramFactories[ucls]: com.objectaid.uml.cls.model.ClassDiagramFactory@1caeccf
+2014-08-15 10:55:10.605 [Worker-3] INFO    com.objectaid.uml.model.manage.DiagramManager getFactories: com.objectaid.uml.diagramFactories[useq]: com.objectaid.uml.seq.model.SequenceDiagramFactory@1ab0576
