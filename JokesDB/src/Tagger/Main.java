@@ -13,7 +13,7 @@ public class Main {
 		DBReader reader = new DBReader();
 		//reader.retrieveJokes("resources/contents_1.csv");
 	
-		reader.retrieveJokes("resources/contents.csv");
+		reader.retrieveJokes("resources/contents/contents_4000-4999.csv");
 	}
 
 }
