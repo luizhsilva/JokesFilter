@@ -1,3 +1,0 @@
-INDEX VERSION 1.126+/Users/luizhsilva/Desktop/HiWi/JokesFilter/.metadata/.plugins/org.eclipse.jdt.core
-1271342938.index
-3838248434.index
