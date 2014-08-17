@@ -1,5 +1,13 @@
 package tags;
 
-public class NonEnglishTag extends Tag {
+import java.util.ArrayList;
 
+public class NonEnglishTag implements Tag {
+
+	ArrayList<String> jokes;
+	
+	public void addJoke(String content) {
+		jokes.add(content);
+	}
+	
 }

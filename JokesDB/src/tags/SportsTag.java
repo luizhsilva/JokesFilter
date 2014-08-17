@@ -1,5 +1,13 @@
 package tags;
 
-public class SportsTag extends Tag {
+import java.util.ArrayList;
 
+public class SportsTag implements Tag {
+
+	ArrayList<String> jokes;
+	
+	public void addJoke(String content) {
+		jokes.add(content);
+	}
+	
 }

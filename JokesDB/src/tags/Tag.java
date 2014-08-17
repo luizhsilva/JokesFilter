@@ -1,5 +1,8 @@
 package tags;
 
-public class Tag {
-
+public interface Tag {
+	
+	public void addJoke(String content);
+	
+	
 }
