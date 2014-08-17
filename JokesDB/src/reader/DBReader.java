@@ -23,9 +23,6 @@ public class DBReader {
 				System.out.println(sCurrentLine);
 			}
 			
-			
-			
-			
 			return null;
 	
 		} catch (IOException e) {
