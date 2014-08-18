@@ -24,6 +24,10 @@ public class InappropriateTag implements Tag {
 
 	ArrayList<String> jokes;
 	
+	public InappropriateTag() {
+		this.jokes = new ArrayList<String>();
+	}
+	
 	public void addJoke(String content) {
 		jokes.add(content);
 	}
@@ -35,7 +39,7 @@ public class InappropriateTag implements Tag {
 	}
 	
 	public void writeFile() {
-		String pathname = "resources/files/UserData/InappropriateTag.json";
+		String pathname = "resources/data/tags/InappropriateTag.json";
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(pathname, "UTF-8");
