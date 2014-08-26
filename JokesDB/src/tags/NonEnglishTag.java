@@ -9,5 +9,11 @@ public class NonEnglishTag implements Tag {
 	public void addJoke(String content) {
 		jokes.add(content);
 	}
+
+	@Override
+	public void writeFile() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

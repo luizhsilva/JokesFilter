@@ -26,20 +26,17 @@ import com.google.gson.*;
 public class InappropriateTag implements Tag {
 
 	ArrayList<String> jokes;
-	//JsonObject inTag = null;
-	JsonArray taggedJokes = null;
+	
+	
 	
 	public InappropriateTag() {
 		this.jokes = new ArrayList<String>();
-	//	inTag = new JsonObject();
-		taggedJokes = new JsonArray();
 		
 	}
 	
 	public void addJoke(String content) {
-		JsonObject joke = new JsonObject();
-		joke.addProperty(content, true);
-		taggedJokes.add(joke);
+		
+		jokes.add(content);
 	}
 	
 	public String generateJSON() {
@@ -68,7 +65,6 @@ public class InappropriateTag implements Tag {
 		try {
 			writer = new PrintWriter(pathname, "UTF-8");
 			writer.write(this.generateJSON());
-			writer.println(this.generateJSON());
 			writer.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
