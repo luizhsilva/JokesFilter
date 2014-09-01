@@ -11,7 +11,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		DBReader reader = new DBReader();
-		//reader.retrieveJokes("resources/contents_1.csv");
+		reader.retrieveJokes("resources/contents/a_jokes_pure.txt");
 	
 		// reader.retrieveJokes("resources/contents/contents_13000-13999.csv");
 		// for json test
