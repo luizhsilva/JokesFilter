@@ -21,7 +21,8 @@ public class DBReader {
 		try {
 			 
 			String sCurrentLine;
-	
+			//Contains jokes obtained from file.
+			ArrayList<String> jokesList = new ArrayList<String>();
 			br = new BufferedReader(new FileReader(filePath));
 	
 			//reads all lines in file
@@ -46,14 +47,13 @@ public class DBReader {
 				//Cuts the string with the correct indexes
 				String jokeString = sCurrentLine.substring(beginIndex, endIndex);
 				
-				//TODO
-				//FIXME
-				//Instead of printing, should be creating an array with jokes.
-				System.out.println(jokeString);
+				//Adds to list of jokes
+				jokesList.add(jokeString);
 			}
 			
 			
-			return null;
+			//Returns list with jokes
+			return jokesList;
 	
 		} catch (IOException e) {
 			e.printStackTrace();
