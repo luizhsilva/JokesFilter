@@ -42,7 +42,7 @@ public class Filter {
 	 */
 	public void checkLength(String s) {
 		String[] strs = s.split(" ");
-		if(strs.length >= 100) {
+		if(strs.length >= 120) {
 			this.tooLongTag.addJoke(s);
 			this.tooLongTag.writeFile();
 		}
@@ -131,6 +131,6 @@ public class Filter {
 		sportWords.add(" tennis");
 		sportWords.add(" swim");
 		sportWords.add(" badminton");
-		return null;
+		return sportWords;
 	}
 }

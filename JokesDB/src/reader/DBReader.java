@@ -1,17 +1,26 @@
 package reader;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+
+import com.google.gson.Gson;
 
 
 
 public class DBReader {
 	
 	BufferedReader br = null;
-	
+	//ArrayList<String> alljokes;
 
+	/*
+	public DBReader() {
+		this.alljokes = new ArrayList<String>();
+	}*/
 	/**
 	 * Decodes jokes from jokes file (one joke per line)
 	 * @param filePath
@@ -51,7 +60,7 @@ public class DBReader {
 				jokesList.add(jokeString);
 			}
 			
-			
+		//	this.alljokes = jokesList;
 			//Returns list with jokes
 			return jokesList;
 	
@@ -67,5 +76,25 @@ public class DBReader {
 		
 		return null;
 	}
+	/*
+	public void writeFile() {
+		String pathname = "resources/files/Jokes.json";
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(pathname, "UTF-8");
+			writer.write(this.generateJSON());
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+	public String generateJSON() {
+		Gson creator; 
+		creator = new Gson();
+		return creator.toJson(this);
+	}*/
+	
 }	
 	

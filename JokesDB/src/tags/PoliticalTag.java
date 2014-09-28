@@ -13,19 +13,15 @@ public class PoliticalTag implements Tag {
 
 	private ArrayList<String> jokes;
 	
-	//JsonArray taggedJokes = null;
+	
 	
 	public PoliticalTag() {
 		this.jokes = new ArrayList<String>();
-	
-		//taggedJokes = new JsonArray();
 		
 	}
 	
 	public void addJoke(String content) {
-		//JsonObject joke = new JsonObject();
-		//joke.addProperty(content, true);
-		//taggedJokes.add(joke);
+		
 		this.jokes.add(content);
 	}
 	
@@ -55,7 +51,6 @@ public class PoliticalTag implements Tag {
 		try {
 			writer = new PrintWriter(pathname, "UTF-8");
 			writer.write(this.generateJSON());
-		//	writer.println(this.generateJSON());
 			writer.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
