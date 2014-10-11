@@ -1,20 +1,24 @@
 package tags;
 
-import java.util.ArrayList;
-import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import tagger.Joke;
+import com.google.gson.Gson;
 
-//import org.json.JSONException;
-//import org.json.JSONObject;
-import com.google.gson.*;
+import org.json.CDL;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.apache.commons.io.FileUtils;
+
 
 /**
  * 
@@ -25,7 +29,7 @@ import com.google.gson.*;
 
 public class InappropriateTag implements Tag {
 
-	ArrayList<String> jokes;
+	private ArrayList<String> jokes;
 	
 	
 	
@@ -37,6 +41,7 @@ public class InappropriateTag implements Tag {
 	public void addJoke(String content) {
 		
 		jokes.add(content);
+		//jokes.add("/n");
 	}
 	
 	public String generateJSON() {
@@ -78,7 +83,24 @@ public class InappropriateTag implements Tag {
 		return jokes;
 	}
 
-	
-	
+	public void toCSV() throws JSONException, IOException {
+		
+		//JSONObject jobj = new JSONObject(this.generateJSON());
+		//JSONArray jarr = jobj.getJSONArray("jokes");
+		
+		//File csv = new File("resources/files/Outputs/InappropriateTag.csv");
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("resources/files/Outputs/InappropriateTag.csv"), "UTF-8"));
+		
+		for(String str : this.jokes) {
+			StringBuffer oneline = new StringBuffer();
+			oneline.append(str);
+			oneline.append("\r");
+			bw.write(oneline.toString());
+			bw.newLine();
+		}
+		
+		bw.flush();
+		bw.close();
+	}
 	
 }

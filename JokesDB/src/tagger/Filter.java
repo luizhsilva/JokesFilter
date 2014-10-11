@@ -1,7 +1,14 @@
 package tagger;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import org.apache.commons.io.FileUtils;
+import org.json.CDL;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import tags.*;
 
@@ -81,7 +88,7 @@ public class Filter {
 		poliWords.add(" bill clinton");
 		poliWords.add(" hillary clinton");
 		poliWords.add(" kennedys");
-	//	poliWords.add(" IRS");
+	//	poliWords.add(" IRS ");
 		poliWords.add(" john kerry");
 		poliWords.add(" al gore");
 		return poliWords;
@@ -90,12 +97,13 @@ public class Filter {
 	/*
 	 * too much?
 	 */
-	public void checkAppropriateness(String s) {
+	public void checkAppropriateness(String s) throws JSONException, IOException {
 		String str = s.toLowerCase();
 		for(String string : inappWords){
 			if( str.contains(string)) this.inappTag.addJoke(s);
 		}
 		((InappropriateTag) inappTag).writeFile();
+		((InappropriateTag) inappTag).toCSV();
 	}
 
 	private ArrayList<String> initInappWords() {
@@ -201,5 +209,14 @@ public class Filter {
 		sportWords.add(" roger federer");
 		sportWords.add(" kobe bryant");
 		return sportWords;
+	}
+	
+	public void toCSV(ArrayList<String> contents) throws JSONException, IOException{
+		
+		JSONArray jarr = new JSONArray(contents);
+		
+		File csv = new File("resources/files/Outputs/InappropriateTag.csv");
+		String con = CDL.toString(jarr);
+		FileUtils.writeStringToFile(csv, con);
 	}
 }

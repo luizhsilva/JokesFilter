@@ -6,21 +6,22 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.json.JSONException;
+
 import reader.DBReader;
 
 public class Main {
 
 	/**
 	 * @param args
+	 * @throws JSONException 
 	 * @throws SQLException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JSONException {
 		DBReader reader = new DBReader();
 		reader.retrieveJokes("resources/contents/a_jokes_pure.txt");
 	
-	//	reader.writeFile();
-		// reader.retrieveJokes("resources/contents/contents_13000-13999.csv");
-		// for json test
+	
 		 Filter f = new Filter();
 		 try {
 			BufferedReader br = new BufferedReader(new FileReader("resources/contents/a_jokes_pure.txt"));
@@ -60,6 +61,7 @@ public class Main {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		 
 	}
 	
 	
