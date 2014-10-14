@@ -19,9 +19,11 @@ public class Filter {
 	private Tag lawyerTag;
 	private Tag poliTag;
 	private Tag sportTag;
+	private OriginalJokes o_jokes;
 	private ArrayList<String> inappWords;
 	private ArrayList<String> politicalWords;
 	private ArrayList<String> sportWords;
+	
 
 	
 	public Filter() {
@@ -33,6 +35,7 @@ public class Filter {
 		this.politicalWords = initPoliWords();
 		this.sportTag = new SportsTag();
 		this.sportWords = initSportWords();
+		this.o_jokes = new OriginalJokes();
 	}
 
 	
@@ -44,39 +47,59 @@ public class Filter {
 		
 	}
 
+	
+	public void addToOriginalJokes(Joke j) {
+		//Joke j = new Joke();
+		this.o_jokes.addJoke(j);
+		//j.setContent(s);
+	}
 	/*
 	 * too long?
 	 */
-	public void checkLength(String s) {
+	public void checkLength(String s, Joke j) throws JSONException, IOException {
 		String[] strs = s.split(" ");
 		if(strs.length >= 120) {
 			this.tooLongTag.addJoke(s);
 			this.tooLongTag.writeFile();
-		}
+			 j.setTooLongTag(1);
+		}else j.setTooLongTag(0);
+		
+		((TooLongTag) this.tooLongTag).toCSV();
 	}
 	
 	/*
 	 * lawyer joke? sport? politic? blonde?
 	 */
-	public void addType(String s) {
+	public void addType(String s, Joke j) throws JSONException, IOException {
 		String str = s.toLowerCase();
 		if( str.contains( " lawyer")){ 
 			this.lawyerTag.addJoke(s);
 			((LawyerTag) this.lawyerTag).writeFile();
-			}
+			j.setLawyerTag(1);
+			}else j.setLawyerTag(0);
 		
 		//ArrayList<String> poliWords = initPoliWords();
 		for(String string : politicalWords){
-			if( str.contains(string)) this.poliTag.addJoke(s);
-			((PoliticalTag) this.poliTag).writeFile();
+			if( str.contains(string)) {
+				this.poliTag.addJoke(s);
+				j.setPoliTag(1);
+				((PoliticalTag) this.poliTag).writeFile();
+			}else j.setPoliTag(0);
+			
+			
 		}
 		
 		for(String str1 : sportWords) {
 			if(str.contains(str1)){
 				this.sportTag.addJoke(s);
 				this.sportTag.writeFile();
-			}
+				j.setSportTag(1);
+			}else j.setSportTag(0);
 		}
+		
+		((LawyerTag) this.lawyerTag).toCSV();
+		((PoliticalTag) this.poliTag).toCSV();
+		((SportsTag) this.sportTag).toCSV();
 	}
 	
 	private ArrayList<String> initPoliWords() {
@@ -97,12 +120,16 @@ public class Filter {
 	/*
 	 * too much?
 	 */
-	public void checkAppropriateness(String s) throws JSONException, IOException {
+	public void checkAppropriateness(String s, Joke j) throws JSONException, IOException {
 		String str = s.toLowerCase();
 		for(String string : inappWords){
-			if( str.contains(string)) this.inappTag.addJoke(s);
+			if( str.contains(string)) {
+				this.inappTag.addJoke(s);
+				((InappropriateTag) inappTag).writeFile();
+				j.setInapprTag(1);
+			}else j.setInapprTag(0);
 		}
-		((InappropriateTag) inappTag).writeFile();
+		
 		((InappropriateTag) inappTag).toCSV();
 	}
 
@@ -210,13 +237,12 @@ public class Filter {
 		sportWords.add(" kobe bryant");
 		return sportWords;
 	}
-	
-	public void toCSV(ArrayList<String> contents) throws JSONException, IOException{
-		
-		JSONArray jarr = new JSONArray(contents);
-		
-		File csv = new File("resources/files/Outputs/InappropriateTag.csv");
-		String con = CDL.toString(jarr);
-		FileUtils.writeStringToFile(csv, con);
+
+
+
+	public OriginalJokes getO_jokes() {
+		return o_jokes;
 	}
+	
+	
 }

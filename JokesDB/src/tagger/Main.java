@@ -2,9 +2,14 @@ package tagger;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import org.json.JSONException;
 
@@ -15,9 +20,10 @@ public class Main {
 	/**
 	 * @param args
 	 * @throws JSONException 
+	 * @throws IOException 
 	 * @throws SQLException 
 	 */
-	public static void main(String[] args) throws JSONException {
+	public static void main(String[] args) throws JSONException, IOException {
 		DBReader reader = new DBReader();
 		reader.retrieveJokes("resources/contents/a_jokes_pure.txt");
 	
@@ -49,9 +55,16 @@ public class Main {
 				}
 				//Cuts the string with the correct indexes
 				String jokeString = crLine.substring(beginIndex, endIndex);
-				f.checkLength(jokeString);
-				f.addType(jokeString);
-				f.checkAppropriateness(jokeString);
+				//save all original jokes
+				
+				Joke j = new Joke();
+				j.setContent(jokeString);
+				
+				
+				f.checkLength(jokeString, j);
+				f.addType(jokeString,j);
+				f.checkAppropriateness(jokeString,j);
+				f.addToOriginalJokes(j);
 				}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -62,7 +75,23 @@ public class Main {
 				e.printStackTrace();
 			}
 		 
+		 createDBWithoutTooLongJokes(f);
 	}
 	
+	private static void createDBWithoutTooLongJokes(Filter f) throws IOException{
+	  ArrayList<Joke> all_jokes = f.getO_jokes().getJokes();
+	  BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("resources/files/Outputs/allWithoutTooLong.csv"), "UTF-8"));
+	  for(Joke j : all_jokes) {
+		  if(j.getTooLongTag() < 1) {
+			  StringBuffer oneline = new StringBuffer();
+				oneline.append(j.getContent());
+				oneline.append("\r");
+				bw.write(oneline.toString());
+				bw.newLine();
+		  }
+	  }
+	  bw.flush();
+	  bw.close();
+	}
 	
 }

@@ -1,9 +1,15 @@
 package tags;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+
+import org.json.JSONException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -24,6 +30,7 @@ public class LawyerTag implements Tag {
 	public void addJoke(String content) {
 		
 		this.jokes.add(content);
+		
 	}
 	
 	public String generateJSON() {
@@ -65,6 +72,26 @@ public class LawyerTag implements Tag {
 		return jokes;
 	}
 
+	/**
+	 * Convert json to CSV format
+	 * @throws JSONException
+	 * @throws IOException
+	 */
+	public void toCSV() throws JSONException, IOException {
+		
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("resources/files/Outputs/LaywerJokes.csv"), "UTF-8"));
+		
+		for(String str : this.jokes) {
+			StringBuffer oneline = new StringBuffer();
+			oneline.append(str);
+			oneline.append("\r");
+			bw.write(oneline.toString());
+			bw.newLine();
+		}
+		
+		bw.flush();
+		bw.close();
+	}
 	
 	
 }

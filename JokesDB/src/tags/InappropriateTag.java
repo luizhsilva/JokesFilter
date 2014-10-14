@@ -32,16 +32,16 @@ public class InappropriateTag implements Tag {
 	private ArrayList<String> jokes;
 	
 	
-	
 	public InappropriateTag() {
 		this.jokes = new ArrayList<String>();
-		
+		//this.isInappr = false;
 	}
 	
 	public void addJoke(String content) {
 		
 		jokes.add(content);
 		//jokes.add("/n");
+		//this.isInappr = true;
 	}
 	
 	public String generateJSON() {
@@ -83,13 +83,14 @@ public class InappropriateTag implements Tag {
 		return jokes;
 	}
 
+	/**
+	 * convert json array to csv format
+	 * @throws JSONException
+	 * @throws IOException
+	 */
 	public void toCSV() throws JSONException, IOException {
 		
-		//JSONObject jobj = new JSONObject(this.generateJSON());
-		//JSONArray jarr = jobj.getJSONArray("jokes");
-		
-		//File csv = new File("resources/files/Outputs/InappropriateTag.csv");
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("resources/files/Outputs/InappropriateTag.csv"), "UTF-8"));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("resources/files/Outputs/InappropriateJokes.csv"), "UTF-8"));
 		
 		for(String str : this.jokes) {
 			StringBuffer oneline = new StringBuffer();
@@ -102,5 +103,6 @@ public class InappropriateTag implements Tag {
 		bw.flush();
 		bw.close();
 	}
+	
 	
 }
