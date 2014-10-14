@@ -19,11 +19,19 @@ public class Filter {
 	private Tag lawyerTag;
 	private Tag poliTag;
 	private Tag sportTag;
+<<<<<<< HEAD
 	private OriginalJokes o_jokes;
 	private ArrayList<String> inappWords;
 	private ArrayList<String> politicalWords;
 	private ArrayList<String> sportWords;
 	
+=======
+	private Tag nonEnglishTag;
+	private ArrayList<String> inappWords;
+	private ArrayList<String> politicalWords;
+	private ArrayList<String> sportWords;
+	private ArrayList<String> nonEnglishWords;
+>>>>>>> FETCH_HEAD
 
 	
 	public Filter() {
@@ -35,16 +43,25 @@ public class Filter {
 		this.politicalWords = initPoliWords();
 		this.sportTag = new SportsTag();
 		this.sportWords = initSportWords();
+<<<<<<< HEAD
 		this.o_jokes = new OriginalJokes();
+=======
+		initNonEnglishWords();
+>>>>>>> FETCH_HEAD
 	}
 
 	
 
 	/*
 	 * english or spanish?
-	 */
+ 	 */
 	public void checkLanguage(String s) {
-		
+		String str = s.toLowerCase();
+		for (String string: nonEnglishWords) {
+			if (str.contains(string))
+				this.nonEnglishTag.addJoke(s);
+			((NonEnglishTag) this.nonEnglishTag).writeFile();
+		}
 	}
 
 	
@@ -237,11 +254,46 @@ public class Filter {
 		sportWords.add(" kobe bryant");
 		return sportWords;
 	}
+<<<<<<< HEAD
 
 
 
 	public OriginalJokes getO_jokes() {
 		return o_jokes;
+=======
+	
+	private ArrayList<String> initNonEnglishWords() {
+		nonEnglishWords = new ArrayList<String>();
+		//For comparison reasons, spaces must be added
+		nonEnglishWords.add(" el ");
+		nonEnglishWords.add(" la ");
+		nonEnglishWords.add(" que ");
+		nonEnglishWords.add(" un ");
+		nonEnglishWords.add(" una ");
+		nonEnglishWords.add(" con ");
+		nonEnglishWords.add(" para ");
+		nonEnglishWords.add(" como ");
+		//If it is the first word in the sentece:
+		nonEnglishWords.add("el ");
+		nonEnglishWords.add("la ");
+		nonEnglishWords.add("que ");
+		nonEnglishWords.add("un ");
+		nonEnglishWords.add("una ");
+		nonEnglishWords.add("con ");
+		nonEnglishWords.add("para ");
+		nonEnglishWords.add("como ");
+		
+		return nonEnglishWords;
+	}
+	
+	public void toCSV(ArrayList<String> contents) throws JSONException, IOException{
+		
+		JSONArray jarr = new JSONArray(contents);
+		
+		File csv = new File("resources/files/Outputs/InappropriateTag.csv");
+		String con = CDL.toString(jarr);
+		FileUtils.writeStringToFile(csv, con);
+>>>>>>> FETCH_HEAD
 	}
 	
 	
