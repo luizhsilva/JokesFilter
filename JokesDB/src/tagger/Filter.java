@@ -19,19 +19,16 @@ public class Filter {
 	private Tag lawyerTag;
 	private Tag poliTag;
 	private Tag sportTag;
-<<<<<<< HEAD
+	private Tag nonEnglishTag;
+
 	private OriginalJokes o_jokes;
 	private ArrayList<String> inappWords;
 	private ArrayList<String> politicalWords;
 	private ArrayList<String> sportWords;
 	
-=======
-	private Tag nonEnglishTag;
-	private ArrayList<String> inappWords;
-	private ArrayList<String> politicalWords;
-	private ArrayList<String> sportWords;
+
 	private ArrayList<String> nonEnglishWords;
->>>>>>> FETCH_HEAD
+
 
 	
 	public Filter() {
@@ -43,11 +40,11 @@ public class Filter {
 		this.politicalWords = initPoliWords();
 		this.sportTag = new SportsTag();
 		this.sportWords = initSportWords();
-<<<<<<< HEAD
+
 		this.o_jokes = new OriginalJokes();
-=======
+
 		initNonEnglishWords();
->>>>>>> FETCH_HEAD
+
 	}
 
 	
@@ -254,13 +251,13 @@ public class Filter {
 		sportWords.add(" kobe bryant");
 		return sportWords;
 	}
-<<<<<<< HEAD
+
 
 
 
 	public OriginalJokes getO_jokes() {
 		return o_jokes;
-=======
+	}
 	
 	private ArrayList<String> initNonEnglishWords() {
 		nonEnglishWords = new ArrayList<String>();
@@ -293,7 +290,7 @@ public class Filter {
 		File csv = new File("resources/files/Outputs/InappropriateTag.csv");
 		String con = CDL.toString(jarr);
 		FileUtils.writeStringToFile(csv, con);
->>>>>>> FETCH_HEAD
+
 	}
 	
 	
