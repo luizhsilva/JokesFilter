@@ -40,6 +40,7 @@ public class Filter {
 		this.politicalWords = initPoliWords();
 		this.sportTag = new SportsTag();
 		this.sportWords = initSportWords();
+		this.nonEnglishTag = new NonEnglishTag();
 
 		this.o_jokes = new OriginalJokes();
 
@@ -52,12 +53,15 @@ public class Filter {
 	/*
 	 * english or spanish?
  	 */
-	public void checkLanguage(String s) {
+	public void checkLanguage(String s, Joke j) {
 		String str = s.toLowerCase();
 		for (String string: nonEnglishWords) {
-			if (str.contains(string))
+			if (str.contains(string)) {
 				this.nonEnglishTag.addJoke(s);
-			((NonEnglishTag) this.nonEnglishTag).writeFile();
+				j.setEnglishTag(0);
+				((NonEnglishTag) this.nonEnglishTag).writeFile();
+			}else j.setEnglishTag(1);
+			
 		}
 	}
 
@@ -82,7 +86,7 @@ public class Filter {
 	}
 	
 	/*
-	 * lawyer joke? sport? politic? blonde?
+	 * lawyer joke? sport? politic? 
 	 */
 	public void addType(String s, Joke j) throws JSONException, IOException {
 		String str = s.toLowerCase();
@@ -125,7 +129,7 @@ public class Filter {
 		poliWords.add(" bill clinton");
 		poliWords.add(" hillary clinton");
 		poliWords.add(" kennedys");
-	//	poliWords.add(" IRS ");
+		poliWords.add(" irs ");
 		poliWords.add(" john kerry");
 		poliWords.add(" al gore");
 		return poliWords;
@@ -270,7 +274,7 @@ public class Filter {
 		nonEnglishWords.add(" con ");
 		nonEnglishWords.add(" para ");
 		nonEnglishWords.add(" como ");
-		//If it is the first word in the sentece:
+		//If it is the first word in the sentence:
 		nonEnglishWords.add("el ");
 		nonEnglishWords.add("la ");
 		nonEnglishWords.add("que ");
@@ -283,6 +287,12 @@ public class Filter {
 		return nonEnglishWords;
 	}
 	
+	/**
+	 * just for test...it isn't used later
+	 * @param contents
+	 * @throws JSONException
+	 * @throws IOException
+	 */
 	public void toCSV(ArrayList<String> contents) throws JSONException, IOException{
 		
 		JSONArray jarr = new JSONArray(contents);

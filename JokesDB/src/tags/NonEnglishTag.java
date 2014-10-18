@@ -9,11 +9,17 @@ import com.google.gson.Gson;
 
 public class NonEnglishTag implements Tag {
 
-	ArrayList<String> jokes;
+	private ArrayList<String> jokes;
+	
+	public NonEnglishTag() {
+		this.jokes = new ArrayList<String>();
+	}
 	
 	public void addJoke(String content) {
 		jokes.add(content);
 	}
+	
+	
 	
 	public String generateJSON() {
 		Gson creator; 

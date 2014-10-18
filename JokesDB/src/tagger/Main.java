@@ -64,6 +64,7 @@ public class Main {
 				f.checkLength(jokeString, j);
 				f.addType(jokeString,j);
 				f.checkAppropriateness(jokeString,j);
+				f.checkLanguage(jokeString, j);
 				f.addToOriginalJokes(j);
 				}
 		} catch (IOException e) {
