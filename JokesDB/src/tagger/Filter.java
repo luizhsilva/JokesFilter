@@ -67,9 +67,7 @@ public class Filter {
 
 	
 	public void addToOriginalJokes(Joke j) {
-		//Joke j = new Joke();
 		this.o_jokes.addJoke(j);
-		//j.setContent(s);
 	}
 	/*
 	 * too long?
@@ -96,15 +94,12 @@ public class Filter {
 			j.setLawyerTag(1);
 			}else j.setLawyerTag(0);
 		
-		//ArrayList<String> poliWords = initPoliWords();
 		for(String string : politicalWords){
 			if( str.contains(string)) {
 				this.poliTag.addJoke(s);
 				j.setPoliTag(1);
 				((PoliticalTag) this.poliTag).writeFile();
-			}else j.setPoliTag(0);
-			
-			
+			}else j.setPoliTag(0);		
 		}
 		
 		for(String str1 : sportWords) {
@@ -124,14 +119,24 @@ public class Filter {
 		ArrayList<String> poliWords = new ArrayList<String>();
 		poliWords.add(" social democrat");
 		poliWords.add(" republican");
-		poliWords.add(" bush");
+		poliWords.add(" bush");poliWords.add(" george bush ");
 		poliWords.add(" monica lewinsky");
 		poliWords.add(" bill clinton");
 		poliWords.add(" hillary clinton");
-		poliWords.add(" kennedys");
+		poliWords.add(" kennedys");poliWords.add(" kennedy ");
 		poliWords.add(" irs ");
 		poliWords.add(" john kerry");
 		poliWords.add(" al gore");
+		poliWords.add(" afghanistan ");
+		poliWords.add(" dalai lama ");
+		poliWords.add(" referendum ");
+		poliWords.add(" eu "); poliWords.add(" european union ");
+		poliWords.add(" g20"); poliWords.add(" g20 ");
+		poliWords.add(" g8"); poliWords.add(" g8 ");
+		poliWords.add(" north korea ");
+		poliWords.add(" obama ");
+		poliWords.add(" mitt romney ");
+		poliWords.add(" serbia "); poliWords.add(" syria ");
 		return poliWords;
 	}
 
