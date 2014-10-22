@@ -34,14 +34,11 @@ public class InappropriateTag implements Tag {
 	
 	public InappropriateTag() {
 		this.jokes = new ArrayList<String>();
-		//this.isInappr = false;
 	}
 	
 	public void addJoke(String content) {
 		
 		jokes.add(content);
-		//jokes.add("/n");
-		//this.isInappr = true;
 	}
 	
 	public String generateJSON() {

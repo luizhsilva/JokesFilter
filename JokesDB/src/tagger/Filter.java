@@ -58,8 +58,8 @@ public class Filter {
 		for (String string: nonEnglishWords) {
 			if (str.contains(string)) {
 				this.nonEnglishTag.addJoke(s);
+				this.nonEnglishTag.writeFile();
 				j.setEnglishTag(0);
-				((NonEnglishTag) this.nonEnglishTag).writeFile();
 			}else j.setEnglishTag(1);
 			
 		}
@@ -68,6 +68,7 @@ public class Filter {
 	
 	public void addToOriginalJokes(Joke j) {
 		this.o_jokes.addJoke(j);
+		this.o_jokes.writeFile();
 	}
 	/*
 	 * too long?

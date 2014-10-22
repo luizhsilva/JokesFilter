@@ -53,7 +53,7 @@ public class OriginalJokes {
 
 		
 		public void writeFile() {
-			String pathname = "resources/files/UserData/NonTag.json";
+			String pathname = "resources/files/UserData/OriginalJokes.json";
 			PrintWriter writer;
 			try {
 				writer = new PrintWriter(pathname, "UTF-8");

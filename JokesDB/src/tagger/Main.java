@@ -29,11 +29,32 @@ public class Main {
 	
 	
 		 Filter f = new Filter();
-		 try {
+		 
 			BufferedReader br = new BufferedReader(new FileReader("resources/contents/a_jokes_pure.txt"));
 		
+			 BufferedWriter bw1 = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("resources/files/Outputs/allWithoutTooLong.csv"), "UTF-8"));
+			 
+			 String pn1 = "resources/files/Outputs/allWithTags.csv"; 
+			 BufferedWriter all = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(pn1), "UTF-8"));
+			 
+			 String pn2 = "resources/files/Outputs/allWithoutSpanishJokes.csv";
+			 BufferedWriter bw2 = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(pn2), "UTF-8"));
+			 
+			 String pn3 = "resources/files/Outputs/allWithoutSpanishandTooLongJokes.csv";
+			 BufferedWriter bw3 = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(pn3), "UTF-8"));
+			 
+			 String pn4 = "resources/files/Outputs/LawyerWithoutTooLongJokes.csv";
+			 BufferedWriter bw4 = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(pn4), "UTF-8"));
+			 
+			 String pn5 = "resources/files/Outputs/PoliticalWithoutTooLongJokes.csv";
+			 BufferedWriter bw5 = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(pn5), "UTF-8"));
+			 
+			 String pn6 = "resources/files/Outputs/SportWithoutTooLongJokes.csv";
+			 BufferedWriter bw6 = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(pn6), "UTF-8"));
+			 
 		 String crLine;
-		//String jokeString;
+	
+		 
 		 try {
 			while( (crLine =  br.readLine()) != null) 
 			 	{
@@ -62,37 +83,158 @@ public class Main {
 				
 				
 				f.checkLength(jokeString, j);
+				
 				f.addType(jokeString,j);
 				f.checkAppropriateness(jokeString,j);
 				f.checkLanguage(jokeString, j);
-				f.addToOriginalJokes(j);
+				//f.addToOriginalJokes(j);
+				writeJokeToCSV(j, all);
+				
+				if (j.getTooLongTag() < 1) {
+					dbWithoutTooLongJokes(j,bw1);
+				}
+				
+				if(j.getEnglishTag() == 1) {
+					dbWithoutSp(j, bw2);
+				}
+				
+				if((j.getEnglishTag() == 1) && (j.getTooLongTag() < 1)) {
+					dbWithoutTLandSp(j, bw3);
+				}
+				
+				if( (j.getLawyerTag() == 1) && (j.getTooLongTag() < 1)) {
+					partWithoutTL(j, bw4);
+				}
+				
+				if(j.getPoliTag() == 1 && (j.getTooLongTag() < 1)) {
+					partWithoutTL(j, bw5);
+				}
+				
+				if(j.getSportTag() == 1 && (j.getTooLongTag() < 1)) {
+					partWithoutTL(j, bw6);
+				}
 				}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
-		 } catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		 bw1.flush();
+		 bw1.close();
 		 
-		 createDBWithoutTooLongJokes(f);
+		 all.flush();
+		 all.close();
+		 
+		 bw2.flush();
+		 bw2.close();
+		 
+		 bw3.flush();
+		 bw3.close();
+		 
+		 bw4.flush();
+		 bw4.close();
+		 
+		 bw5.flush();
+		 bw5.close();
+		 
+		 bw6.flush();
+		 bw6.close();
+		// createDBWithoutTooLongJokes(f);
 	}
 	
-	private static void createDBWithoutTooLongJokes(Filter f) throws IOException{
-	  ArrayList<Joke> all_jokes = f.getO_jokes().getJokes();
-	  BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("resources/files/Outputs/allWithoutTooLong.csv"), "UTF-8"));
-	  for(Joke j : all_jokes) {
+	
+	private static void partWithoutTL(Joke j, BufferedWriter bw) throws IOException {
+		StringBuffer oneline = new StringBuffer();
+		oneline.append(j.getContent());
+		oneline.append("\r");
+		bw.write(oneline.toString());
+		bw.newLine();
+		
+	}
+
+
+	private static void dbWithoutTLandSp(Joke j, BufferedWriter bw) throws IOException {
+		StringBuffer oneline = new StringBuffer();
+		
+		oneline.append(j.getContent());
+		oneline.append(",");
+		oneline.append(j.getInapprTag() == 1? "Inappropriate" : "");
+		oneline.append(",");
+		oneline.append(j.getLawyerTag() == 1? "Lawyer" : "");
+		oneline.append(",");
+		oneline.append(j.getPoliTag() == 1 ? "Political" : "");
+		oneline.append(",");
+		oneline.append(j.getSportTag() == 1 ? "Sport" : "");
+	    oneline.append("\r");
+		bw.write(oneline.toString());
+		bw.newLine();	
+	}
+
+
+	private static void dbWithoutSp(Joke j, BufferedWriter bw) throws IOException {
+		StringBuffer oneline = new StringBuffer();
+		
+		oneline.append(j.getContent());
+		oneline.append(",");
+		oneline.append(j.getTooLongTag() == 1? "TooLong" : "");
+		oneline.append(",");
+		
+		oneline.append(j.getInapprTag() == 1? "Inappropriate" : "");
+		oneline.append(",");
+		oneline.append(j.getLawyerTag() == 1? "Lawyer" : "");
+		oneline.append(",");
+		oneline.append(j.getPoliTag() == 1 ? "Political" : "");
+		oneline.append(",");
+		oneline.append(j.getSportTag() == 1 ? "Sport" : "");
+	    oneline.append("\r");
+		bw.write(oneline.toString());
+		bw.newLine();
+	}
+
+
+	private static void writeJokeToCSV(Joke j, BufferedWriter bw) throws IOException {
+		StringBuffer oneline = new StringBuffer();
+		
+		oneline.append(j.getContent());
+		oneline.append(",");
+		oneline.append(j.getTooLongTag() == 1? "TooLong" : "");
+		oneline.append(",");
+		oneline.append(j.getEnglishTag() == 0 ? "NonEnglish" : "");
+		oneline.append(",");
+		oneline.append(j.getInapprTag() == 1? "Inappropriate" : "");
+		oneline.append(",");
+		oneline.append(j.getLawyerTag() == 1? "Lawyer" : "");
+		oneline.append(",");
+		oneline.append(j.getPoliTag() == 1 ? "Political" : "");
+		oneline.append(",");
+		oneline.append(j.getSportTag() == 1 ? "Sport" : "");
+	    oneline.append("\r");
+		bw.write(oneline.toString());
+		bw.newLine();
+	}
+
+
+	private static  void dbWithoutTooLongJokes(Joke j, BufferedWriter bw) throws IOException{
+	 // ArrayList<Joke> all_jokes = f.getO_jokes().getJokes();
+	 // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("resources/files/Outputs/allWithoutTooLong.csv"), "UTF-8"));
+	
 		  if(j.getTooLongTag() < 1) {
 			  StringBuffer oneline = new StringBuffer();
 				oneline.append(j.getContent());
-				oneline.append("\r");
+				oneline.append(",");
+				oneline.append(j.getEnglishTag() == 0 ? "NonEnglish" : "");
+				oneline.append(",");
+				oneline.append(j.getInapprTag() == 1? "Inappropriate" : "");
+				oneline.append(",");
+				oneline.append(j.getLawyerTag() == 1? "Lawyer" : "");
+				oneline.append(",");
+				oneline.append(j.getPoliTag() == 1 ? "Political" : "");
+				oneline.append(",");
+				oneline.append(j.getSportTag() == 1 ? "Sport" : "");
+			    oneline.append("\r");
 				bw.write(oneline.toString());
 				bw.newLine();
-		  }
-	  }
-	  bw.flush();
-	  bw.close();
+		  } 
+
 	}
 	
 }
