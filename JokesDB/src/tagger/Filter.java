@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import java.io.File;
+import com.cybozu.labs.langdetect.Detector;
+import com.cybozu.labs.langdetect.DetectorFactory;
+import com.cybozu.labs.langdetect.LangDetectException;
+
 import org.apache.commons.io.FileUtils;
 import org.json.CDL;
 import org.json.JSONArray;
@@ -20,17 +25,16 @@ public class Filter {
 	private Tag poliTag;
 	private Tag sportTag;
 	private Tag nonEnglishTag;
-
+	
+	private Detector detector; 
+	
 	private OriginalJokes o_jokes;
 	private ArrayList<String> inappWords;
 	private ArrayList<String> politicalWords;
 	private ArrayList<String> sportWords;
-	
 
 	private ArrayList<String> nonEnglishWords;
 
-
-	
 	public Filter() {
 		this.inappTag = new InappropriateTag();
 		this.inappWords = initInappWords();
@@ -41,10 +45,16 @@ public class Filter {
 		this.sportTag = new SportsTag();
 		this.sportWords = initSportWords();
 		this.nonEnglishTag = new NonEnglishTag();
-
 		this.o_jokes = new OriginalJokes();
-
 		initNonEnglishWords();
+		
+		
+		try {
+			DetectorFactory.loadProfile(new File("resources/libraries/language-detector/profiles"));
+			this.detector = DetectorFactory.create();
+		} catch (LangDetectException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -54,15 +64,29 @@ public class Filter {
 	 * english or spanish?
  	 */
 	public void checkLanguage(String s, Joke j) {
-		String str = s.toLowerCase();
-		for (String string: nonEnglishWords) {
-			if (str.contains(string)) {
+//		String str = s.toLowerCase();
+//		for (String string: nonEnglishWords) {
+//			if (str.contains(string)) {
+//				this.nonEnglishTag.addJoke(s);
+//				this.nonEnglishTag.writeFile();
+//				j.setEnglishTag(0);
+//			}else j.setEnglishTag(1);
+//			
+//		}
+		
+		try {
+			this.detector.append(s);
+			String language = this.detector.detect();
+			if (language.equals("es")) {
 				this.nonEnglishTag.addJoke(s);
 				this.nonEnglishTag.writeFile();
 				j.setEnglishTag(0);
-			}else j.setEnglishTag(1);
-			
+			} else j.setEnglishTag(1);
+		} catch (LangDetectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
 
 	
