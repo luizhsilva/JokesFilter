@@ -5,7 +5,5 @@
 	<classpathentry kind="lib" path="resources/libraries/google-gson-2.2.4/gson-2.2.4.jar"/>
 	<classpathentry kind="lib" path="resources/libraries/json/java-json.jar"/>
 	<classpathentry kind="lib" path="resources/libraries/org.apache.commons.io.jar"/>
-	<classpathentry kind="lib" path="resources/libraries/language-detector/jsonic-1.2.0.jar"/>
-	<classpathentry kind="lib" path="resources/libraries/language-detector/langdetect.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
