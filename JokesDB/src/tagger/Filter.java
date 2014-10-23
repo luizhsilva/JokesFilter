@@ -50,7 +50,7 @@ public class Filter {
 		
 		
 		try {
-			DetectorFactory.loadProfile(new File("resources/libraries/language-detector/profiles"));
+			DetectorFactory.loadProfile(new File("resources/libraries/lang-detector/profiles"));
 			this.detector = DetectorFactory.create();
 		} catch (LangDetectException e) {
 			e.printStackTrace();
