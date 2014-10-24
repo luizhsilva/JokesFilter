@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import org.json.JSONException;
 
 import reader.DBReader;
+import tags.InappropriateTag;
+import tags.LawyerTag;
+import tags.PoliticalTag;
+import tags.SportsTag;
 
 public class Main {
 
@@ -113,11 +117,27 @@ public class Main {
 				if(j.getSportTag() == 1 && (j.getTooLongTag() < 1)) {
 					partWithoutTL(j, bw6);
 				}
+
 				}
 		} catch (IOException e) {
 			
 			e.printStackTrace();
 		}
+		 f.getInappTag().writeFile();
+	
+		 f.getLawyerTag().writeFile();
+		 
+		 f.getNonEnglishTag().writeFile();
+		 
+		 f.getPoliTag().writeFile();
+		 
+		 f.getSportTag().writeFile();
+		 
+		 ((InappropriateTag) f.getInappTag()).toCSV();
+		 ((LawyerTag) f.getLawyerTag()).toCSV();
+		 ((PoliticalTag) f.getPoliTag()).toCSV();
+		 ((SportsTag) f.getSportTag()).toCSV();
+		 			
 		 bw1.flush();
 		 bw1.close();
 		 

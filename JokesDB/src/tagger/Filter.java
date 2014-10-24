@@ -79,7 +79,7 @@ public class Filter {
 			String language = this.detector.detect();
 			if (language.equals("es")) {
 				this.nonEnglishTag.addJoke(s);
-				this.nonEnglishTag.writeFile();
+			//	this.nonEnglishTag.writeFile();
 				j.setEnglishTag(0);
 			} else j.setEnglishTag(1);
 		} catch (LangDetectException e) {
@@ -178,7 +178,7 @@ public class Filter {
 			}else j.setInapprTag(0);
 		}
 		
-		((InappropriateTag) inappTag).toCSV();
+		//((InappropriateTag) inappTag).toCSV();
 	}
 
 	private ArrayList<String> initInappWords() {
@@ -332,6 +332,43 @@ public class Filter {
 		FileUtils.writeStringToFile(csv, con);
 
 	}
+
+
+
+	public Tag getInappTag() {
+		return inappTag;
+	}
+
+
+
+	public Tag getTooLongTag() {
+		return tooLongTag;
+	}
+
+
+
+	public Tag getLawyerTag() {
+		return lawyerTag;
+	}
+
+
+
+	public Tag getPoliTag() {
+		return poliTag;
+	}
+
+
+
+	public Tag getSportTag() {
+		return sportTag;
+	}
+
+
+
+	public Tag getNonEnglishTag() {
+		return nonEnglishTag;
+	}
+	
 	
 	
 }
