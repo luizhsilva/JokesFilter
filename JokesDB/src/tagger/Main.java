@@ -123,6 +123,8 @@ public class Main {
 			
 			e.printStackTrace();
 		}
+		 
+		 
 		 f.getInappTag().writeFile();
 	
 		 f.getLawyerTag().writeFile();
@@ -132,6 +134,8 @@ public class Main {
 		 f.getPoliTag().writeFile();
 		 
 		 f.getSportTag().writeFile();
+		 
+		 f.getTooLongTag().writeFile();
 		 
 		 ((InappropriateTag) f.getInappTag()).toCSV();
 		 ((LawyerTag) f.getLawyerTag()).toCSV();

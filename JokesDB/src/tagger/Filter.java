@@ -101,11 +101,11 @@ public class Filter {
 		String[] strs = s.split(" ");
 		if(strs.length >= 120) {
 			this.tooLongTag.addJoke(s);
-			this.tooLongTag.writeFile();
+			//this.tooLongTag.writeFile();
 			 j.setTooLongTag(1);
 		}else j.setTooLongTag(0);
 		
-		((TooLongTag) this.tooLongTag).toCSV();
+		//((TooLongTag) this.tooLongTag).toCSV();
 	}
 	
 	/*
@@ -115,7 +115,7 @@ public class Filter {
 		String str = s.toLowerCase();
 		if( str.contains( " lawyer")){ 
 			this.lawyerTag.addJoke(s);
-			((LawyerTag) this.lawyerTag).writeFile();
+			//((LawyerTag) this.lawyerTag).writeFile();
 			j.setLawyerTag(1);
 			}else j.setLawyerTag(0);
 		
@@ -123,14 +123,14 @@ public class Filter {
 			if( str.contains(string)) {
 				this.poliTag.addJoke(s);
 				j.setPoliTag(1);
-				((PoliticalTag) this.poliTag).writeFile();
+				//((PoliticalTag) this.poliTag).writeFile();
 			}else j.setPoliTag(0);		
 		}
 		
 		for(String str1 : sportWords) {
 			if(str.contains(str1)){
 				this.sportTag.addJoke(s);
-				this.sportTag.writeFile();
+				//this.sportTag.writeFile();
 				j.setSportTag(1);
 			}else j.setSportTag(0);
 		}
@@ -173,7 +173,7 @@ public class Filter {
 		for(String string : inappWords){
 			if( str.contains(string)) {
 				this.inappTag.addJoke(s);
-				((InappropriateTag) inappTag).writeFile();
+				//((InappropriateTag) inappTag).writeFile();
 				j.setInapprTag(1);
 			}else j.setInapprTag(0);
 		}
