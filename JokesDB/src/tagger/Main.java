@@ -3,13 +3,10 @@ package tagger;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 
 import org.json.JSONException;
 
@@ -165,7 +162,12 @@ public class Main {
 		// createDBWithoutTooLongJokes(f);
 	}
 	
-	
+	/**
+	 * 
+	 * @param j
+	 * @param bw
+	 * @throws IOException
+	 */
 	private static void partWithoutTL(Joke j, BufferedWriter bw) throws IOException {
 		StringBuffer oneline = new StringBuffer();
 		oneline.append(j.getContent());
@@ -176,6 +178,12 @@ public class Main {
 	}
 
 
+	/**
+	 * 
+	 * @param j
+	 * @param bw
+	 * @throws IOException
+	 */
 	private static void dbWithoutTLandSp(Joke j, BufferedWriter bw) throws IOException {
 		StringBuffer oneline = new StringBuffer();
 		
@@ -194,6 +202,12 @@ public class Main {
 	}
 
 
+	/**
+	 * 
+	 * @param j
+	 * @param bw
+	 * @throws IOException
+	 */
 	private static void dbWithoutSp(Joke j, BufferedWriter bw) throws IOException {
 		StringBuffer oneline = new StringBuffer();
 		
@@ -215,6 +229,12 @@ public class Main {
 	}
 
 
+	/**
+	 * 
+	 * @param j
+	 * @param bw
+	 * @throws IOException
+	 */
 	private static void writeJokeToCSV(Joke j, BufferedWriter bw) throws IOException {
 		StringBuffer oneline = new StringBuffer();
 		
@@ -237,6 +257,12 @@ public class Main {
 	}
 
 
+	/**
+	 * 
+	 * @param j
+	 * @param bw
+	 * @throws IOException
+	 */
 	private static  void dbWithoutTooLongJokes(Joke j, BufferedWriter bw) throws IOException{
 	 // ArrayList<Joke> all_jokes = f.getO_jokes().getJokes();
 	 // BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("resources/files/Outputs/allWithoutTooLong.csv"), "UTF-8"));

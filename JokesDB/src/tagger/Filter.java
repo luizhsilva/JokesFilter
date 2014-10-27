@@ -2,10 +2,8 @@ package tagger;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import java.io.File;
 import com.cybozu.labs.langdetect.Detector;
 import com.cybozu.labs.langdetect.DetectorFactory;
 import com.cybozu.labs.langdetect.LangDetectException;
@@ -46,12 +44,10 @@ public class Filter {
 		this.sportWords = initSportWords();
 		this.nonEnglishTag = new NonEnglishTag();
 		this.o_jokes = new OriginalJokes();
-		initNonEnglishWords();
-		
+		//initNonEnglishWords();
 		
 		try {
 			DetectorFactory.loadProfile(new File("resources/libraries/lang-detector/profiles"));
-			this.detector = DetectorFactory.create();
 		} catch (LangDetectException e) {
 			e.printStackTrace();
 		}
@@ -73,20 +69,29 @@ public class Filter {
 //			}else j.setEnglishTag(1);
 //			
 //		}
+	
+		String language = this.detect(s);
+		if (language.equals("es")) {
+			this.nonEnglishTag.addJoke(s);
+		//	this.nonEnglishTag.writeFile();
+			j.setEnglishTag(0);
+		} else if (language.equals("non")) {
+			j.setEnglishTag(0);
+		} else j.setEnglishTag(1);
 		
+	}
+	
+	private String detect(String s) {
 		try {
+			this.detector = DetectorFactory.create();
 			this.detector.append(s);
 			String language = this.detector.detect();
-			if (language.equals("es")) {
-				this.nonEnglishTag.addJoke(s);
-			//	this.nonEnglishTag.writeFile();
-				j.setEnglishTag(0);
-			} else j.setEnglishTag(1);
+			return language;
 		} catch (LangDetectException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			return "non";
 		}
-		
+		//return "non";
 	}
 
 	
@@ -181,6 +186,10 @@ public class Filter {
 		//((InappropriateTag) inappTag).toCSV();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private ArrayList<String> initInappWords() {
 		ArrayList<String> inappWords = new ArrayList<String>();
 		inappWords.add(" sex");
@@ -250,6 +259,10 @@ public class Filter {
 		return inappWords;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private ArrayList<String> initSportWords() {
 		ArrayList<String> sportWords = new ArrayList<String>();
 		sportWords.add(" football");
@@ -293,6 +306,10 @@ public class Filter {
 		return o_jokes;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private ArrayList<String> initNonEnglishWords() {
 		nonEnglishWords = new ArrayList<String>();
 		//For comparison reasons, spaces must be added
