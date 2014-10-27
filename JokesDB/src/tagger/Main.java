@@ -53,6 +53,9 @@ public class Main {
 			 String pn6 = "resources/files/Outputs/SportWithoutTooLongJokes.csv";
 			 BufferedWriter bw6 = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(pn6), "UTF-8"));
 			 
+			 String pn7 = "resources/files/Outputs/InappropriateJokes.csv";
+			 BufferedWriter bw7 = new BufferedWriter (new OutputStreamWriter(new FileOutputStream(pn7), "UTF-8"));
+			 
 		 String crLine;
 	
 		 
@@ -114,6 +117,11 @@ public class Main {
 				if(j.getSportTag() == 1 && (j.getTooLongTag() < 1)) {
 					partWithoutTL(j, bw6);
 				}
+				
+				if(j.getInapprTag() == 1 ){
+					partWithoutTL(j,bw7);// though it doesn't have something with tooLong to do, 
+										// but because the code are the same
+				}
 
 				}
 		} catch (IOException e) {
@@ -121,24 +129,6 @@ public class Main {
 			e.printStackTrace();
 		}
 		 
-		 
-		 f.getInappTag().writeFile();
-	
-		 f.getLawyerTag().writeFile();
-		 
-		 f.getNonEnglishTag().writeFile();
-		 
-		 f.getPoliTag().writeFile();
-		 
-		 f.getSportTag().writeFile();
-		 
-		 f.getTooLongTag().writeFile();
-		 
-		 ((InappropriateTag) f.getInappTag()).toCSV();
-		 ((LawyerTag) f.getLawyerTag()).toCSV();
-		 ((PoliticalTag) f.getPoliTag()).toCSV();
-		 ((SportsTag) f.getSportTag()).toCSV();
-		 			
 		 bw1.flush();
 		 bw1.close();
 		 
@@ -159,9 +149,32 @@ public class Main {
 		 
 		 bw6.flush();
 		 bw6.close();
+		 
+		 bw7.flush();
+		 bw7.close();
+		// f.getInappTag().writeFile();
+	
+		 //f.getLawyerTag().writeFile();
+		 
+		 //f.getNonEnglishTag().writeFile();
+		 
+		 //f.getPoliTag().writeFile();
+		 
+		 //f.getSportTag().writeFile();
+		 
+		 //f.getTooLongTag().writeFile();
+		 
+		// ((InappropriateTag) f.getInappTag()).toCSV();
+		// ((LawyerTag) f.getLawyerTag()).toCSV();
+		// ((PoliticalTag) f.getPoliTag()).toCSV();
+		// ((SportsTag) f.getSportTag()).toCSV();
+		 			
+
 		// createDBWithoutTooLongJokes(f);
 	}
 	
+	
+
 	/**
 	 * 
 	 * @param j

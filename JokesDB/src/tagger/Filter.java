@@ -104,7 +104,7 @@ public class Filter {
 	 */
 	public void checkLength(String s, Joke j) throws JSONException, IOException {
 		String[] strs = s.split(" ");
-		if(strs.length >= 120) {
+		if(strs.length >= 150) {
 			this.tooLongTag.addJoke(s);
 			//this.tooLongTag.writeFile();
 			 j.setTooLongTag(1);
@@ -183,7 +183,7 @@ public class Filter {
 			}else j.setInapprTag(0);
 		}
 		
-		//((InappropriateTag) inappTag).toCSV();
+		((InappropriateTag) inappTag).toCSV();
 	}
 
 	/**
