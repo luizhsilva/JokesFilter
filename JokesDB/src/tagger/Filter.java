@@ -8,9 +8,6 @@ import com.cybozu.labs.langdetect.Detector;
 import com.cybozu.labs.langdetect.DetectorFactory;
 import com.cybozu.labs.langdetect.LangDetectException;
 
-import org.apache.commons.io.FileUtils;
-import org.json.CDL;
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import tags.*;
@@ -60,20 +57,12 @@ public class Filter {
 	 * english or spanish?
  	 */
 	public void checkLanguage(String s, Joke j) {
-//		String str = s.toLowerCase();
-//		for (String string: nonEnglishWords) {
-//			if (str.contains(string)) {
-//				this.nonEnglishTag.addJoke(s);
-//				this.nonEnglishTag.writeFile();
-//				j.setEnglishTag(0);
-//			}else j.setEnglishTag(1);
-//			
-//		}
+
 	
 		String language = this.detect(s);
 		if (language.equals("es")) {
 			this.nonEnglishTag.addJoke(s);
-		//	this.nonEnglishTag.writeFile();
+		
 			j.setEnglishTag(0);
 		} else if (language.equals("non")) {
 			j.setEnglishTag(0);
@@ -88,10 +77,10 @@ public class Filter {
 			String language = this.detector.detect();
 			return language;
 		} catch (LangDetectException e) {
-			//e.printStackTrace();
+		
 			return "non";
 		}
-		//return "non";
+		
 	}
 
 	
@@ -106,11 +95,10 @@ public class Filter {
 		String[] strs = s.split(" ");
 		if(strs.length >= 150) {
 			this.tooLongTag.addJoke(s);
-			//this.tooLongTag.writeFile();
+			
 			 j.setTooLongTag(1);
 		}else j.setTooLongTag(0);
 		
-		//((TooLongTag) this.tooLongTag).toCSV();
 	}
 	
 	/*
@@ -120,7 +108,7 @@ public class Filter {
 		String str = s.toLowerCase();
 		if( str.contains( " lawyer")){ 
 			this.lawyerTag.addJoke(s);
-			//((LawyerTag) this.lawyerTag).writeFile();
+			
 			j.setLawyerTag(1);
 			}else j.setLawyerTag(0);
 		
@@ -128,16 +116,22 @@ public class Filter {
 			if( str.contains(string)) {
 				this.poliTag.addJoke(s);
 				j.setPoliTag(1);
-				//((PoliticalTag) this.poliTag).writeFile();
-			}else j.setPoliTag(0);		
+				
+			}		
+		}
+		if(j.getPoliTag() == -1) {
+			j.setPoliTag(0);
 		}
 		
 		for(String str1 : sportWords) {
 			if(str.contains(str1)){
 				this.sportTag.addJoke(s);
-				//this.sportTag.writeFile();
+				
 				j.setSportTag(1);
-			}else j.setSportTag(0);
+			}
+		}
+		if(j.getSportTag() == -1) {
+			j.setSportTag(0);
 		}
 		
 		((LawyerTag) this.lawyerTag).toCSV();
@@ -178,12 +172,15 @@ public class Filter {
 		for(String string : inappWords){
 			if( str.contains(string)) {
 				this.inappTag.addJoke(s);
-				//((InappropriateTag) inappTag).writeFile();
+				
 				j.setInapprTag(1);
-			}else j.setInapprTag(0);
+			}
 		}
 		
-		((InappropriateTag) inappTag).toCSV();
+		if(j.getInapprTag() == -1) { // not set jet
+			j.setInapprTag(0);
+		}
+		
 	}
 
 	/**
@@ -334,23 +331,6 @@ public class Filter {
 		return nonEnglishWords;
 	}
 	
-	/**
-	 * just for test...it isn't used later
-	 * @param contents
-	 * @throws JSONException
-	 * @throws IOException
-	 */
-	public void toCSV(ArrayList<String> contents) throws JSONException, IOException{
-		
-		JSONArray jarr = new JSONArray(contents);
-		
-		File csv = new File("resources/files/Outputs/InappropriateTag.csv");
-		String con = CDL.toString(jarr);
-		FileUtils.writeStringToFile(csv, con);
-
-	}
-
-
 
 	public Tag getInappTag() {
 		return inappTag;

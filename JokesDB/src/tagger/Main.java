@@ -152,25 +152,7 @@ public class Main {
 		 
 		 bw7.flush();
 		 bw7.close();
-		// f.getInappTag().writeFile();
-	
-		 //f.getLawyerTag().writeFile();
-		 
-		 //f.getNonEnglishTag().writeFile();
-		 
-		 //f.getPoliTag().writeFile();
-		 
-		 //f.getSportTag().writeFile();
-		 
-		 //f.getTooLongTag().writeFile();
-		 
-		// ((InappropriateTag) f.getInappTag()).toCSV();
-		// ((LawyerTag) f.getLawyerTag()).toCSV();
-		// ((PoliticalTag) f.getPoliTag()).toCSV();
-		// ((SportsTag) f.getSportTag()).toCSV();
-		 			
-
-		// createDBWithoutTooLongJokes(f);
+		
 	}
 	
 	

@@ -18,8 +18,7 @@ import tags.Tag;
 public class Joke {
 
 	private String content;
-//	Tag tag;
-//	ArrayList<Tag> tags;
+
 	private int inapprTag;
 	private int tooLongTag;
 	private int poliTag;
@@ -30,12 +29,11 @@ public class Joke {
 	
 	public Joke(String content) {
 		this.content = content;
-		//this.tags = new ArrayList<Tag>();
-	}
+			}
 	
 	public Joke() {
 		this.content = null;
-		//this.tags = new ArrayList<Tag>();
+		
 		this.englishTag = -1;
 		this.inapprTag = -1;
 		this.lawyerTag = -1;
