@@ -20,19 +20,25 @@ public class Filter {
 	private Tag poliTag;
 	private Tag sportTag;
 	private Tag nonEnglishTag;
+	private Tag racTag;
+	private Tag sexTag;
+	private Tag offTag;
 	
 	private Detector detector; 
 	
 	private OriginalJokes o_jokes;
-	private ArrayList<String> inappWords;
+	//private ArrayList<String> inappWords;
 	private ArrayList<String> politicalWords;
 	private ArrayList<String> sportWords;
+	private ArrayList<String> offensiveWords;
+	private ArrayList<String> sexualWords;
+	private ArrayList<String> racistWords;
 
 	private ArrayList<String> nonEnglishWords;
 
 	public Filter() {
 		this.inappTag = new InappropriateTag();
-		this.inappWords = initInappWords();
+	//	this.inappWords = initInappWords();
 		this.tooLongTag = new TooLongTag();
 		this.lawyerTag = new LawyerTag();
 		this.poliTag = new PoliticalTag();
@@ -42,6 +48,12 @@ public class Filter {
 		this.nonEnglishTag = new NonEnglishTag();
 		this.o_jokes = new OriginalJokes();
 		//initNonEnglishWords();
+		this.offensiveWords = initOffenWords();
+		this.sexualWords = initSexWords();
+		this.racistWords = initRacistWords();
+		this.racTag = new RacistTag();
+		this.offTag = new OffensiveTag();
+		this.sexTag = new SexualTag();
 		
 		try {
 			DetectorFactory.loadProfile(new File("resources/libraries/lang-detector/profiles"));
@@ -52,6 +64,59 @@ public class Filter {
 	}
 
 	
+
+	private ArrayList<String> initRacistWords() {
+		ArrayList<String> rac_Ws = new ArrayList<String>();
+		
+		rac_Ws.add(" chinc "); rac_Ws.add(" chink "); rac_Ws.add(" gook ");
+		rac_Ws.add(" beaner "); rac_Ws.add(" spic "); rac_Ws.add(" spick ");
+		rac_Ws.add(" gringo ");
+		rac_Ws.add(" dago "); rac_Ws.add(" deggo "); rac_Ws.add(" guido ");
+		rac_Ws.add(" fallatio "); rac_Ws.add(" wop ");
+		rac_Ws.add(" kike "); rac_Ws.add(" kyke ");
+		rac_Ws.add(" heeb ");
+		rac_Ws.add(" paki "); 
+		rac_Ws.add(" ruski "); rac_Ws.add(" ruskis ");
+		rac_Ws.add(" nigger ");rac_Ws.add(" niggers "); rac_Ws.add(" jigaboo ");
+		rac_Ws.add(" negro "); rac_Ws.add(" nigaboo "); rac_Ws.add(" nigga ");
+		rac_Ws.add(" niglet "); rac_Ws.add(" nigger");
+		rac_Ws.add(" jungle bunny "); rac_Ws.add(" junglebunny ");
+		rac_Ws.add(" porch monkey "); rac_Ws.add(" porchmonkey ");
+		rac_Ws.add(" honky "); rac_Ws.add(" honkey ");
+		rac_Ws.add(" chinese"); rac_Ws.add(" japanese");rac_Ws.add(" korean");
+		rac_Ws.add(" asian");
+		rac_Ws.add(" mexican");
+		rac_Ws.add(" black people "); rac_Ws.add(" black guy"); rac_Ws.add(" black woman ");
+		rac_Ws.add(" jew "); rac_Ws.add(" jewish ");
+		rac_Ws.add(" mick ");
+		return rac_Ws;
+	}
+
+	private ArrayList<String> initOffenWords() {
+		ArrayList<String> off_Ws = new ArrayList<String>();
+		
+		off_Ws.add(" gay"); 
+		off_Ws.add(" lesbian"); off_Ws.add(" lesbo "); off_Ws.add(" lezzie ");
+		off_Ws.add("fucker "); off_Ws.add(" fucker");
+		off_Ws.add(" asshole");
+		off_Ws.add(" blonde");
+		off_Ws.add("yo mama"); off_Ws.add("yo's mama"); 
+		off_Ws.add("your momma"); off_Ws.add("ya mamma");
+		off_Ws.add("yo mamma"); off_Ws.add("yo' mama");
+		off_Ws.add("yo momma"); off_Ws.add("ur mamma"); off_Ws.add("yo'' mama");
+		off_Ws.add(" slut "); off_Ws.add(" slut");
+		off_Ws.add(" whore "); off_Ws.add(" whore");
+		off_Ws.add(" lardass "); off_Ws.add(" lardasses ");
+		off_Ws.add(" mothafucka ");
+		off_Ws.add(" dumbass "); off_Ws.add(" dumass "); off_Ws.add(" dumb ass");
+		off_Ws.add(" fag ");
+		off_Ws.add(" bitch");
+		off_Ws.add(" jackass "); off_Ws.add(" jackasses ");
+		
+		return off_Ws;
+	}
+
+
 
 	/*
 	 * english or spanish?
@@ -108,15 +173,15 @@ public class Filter {
 		String str = s.toLowerCase();
 		if( str.contains( " lawyer")){ 
 			this.lawyerTag.addJoke(s);
-			
 			j.setLawyerTag(1);
+			//((LawyerTag) this.lawyerTag).toCSV();
 			}else j.setLawyerTag(0);
 		
 		for(String string : politicalWords){
 			if( str.contains(string)) {
 				this.poliTag.addJoke(s);
 				j.setPoliTag(1);
-				
+			//	((PoliticalTag) this.poliTag).toCSV();
 			}		
 		}
 		if(j.getPoliTag() == -1) {
@@ -126,7 +191,7 @@ public class Filter {
 		for(String str1 : sportWords) {
 			if(str.contains(str1)){
 				this.sportTag.addJoke(s);
-				
+				//((SportsTag) this.sportTag).toCSV();
 				j.setSportTag(1);
 			}
 		}
@@ -134,9 +199,9 @@ public class Filter {
 			j.setSportTag(0);
 		}
 		
-		((LawyerTag) this.lawyerTag).toCSV();
-		((PoliticalTag) this.poliTag).toCSV();
-		((SportsTag) this.sportTag).toCSV();
+		
+		
+		
 	}
 	
 	private ArrayList<String> initPoliWords() {
@@ -169,17 +234,46 @@ public class Filter {
 	 */
 	public void checkAppropriateness(String s, Joke j) throws JSONException, IOException {
 		String str = s.toLowerCase();
-		for(String string : inappWords){
+		for(String string : offensiveWords){
 			if( str.contains(string)) {
 				this.inappTag.addJoke(s);
-				
+				//this.offTag.addJoke(s);
 				j.setInapprTag(1);
+				j.setOffensiveTag(1);
+			}
+		}
+		if(j.getOffensiveTag() == -1) {
+			j.setOffensiveTag(0);
+		}
+		
+		for(String str2 : sexualWords) {
+			if( str.contains(str2)){
+				this.inappTag.addJoke(s);
+				//this.sexTag.addJoke(s);
+				j.setInapprTag(1);
+				j.setSexTag(1);
+			}
+		}
+		if(j.getSexTag() == -1){
+			j.setSexTag(0);
+		}
+		
+		for(String str3 : racistWords){
+			if(str.contains(str3)){
+				this.inappTag.addJoke(s);
+				j.setInapprTag(1);
+				j.setRacistTag(1);
+			//	this.racTag.addJoke(s);
 			}
 		}
 		
+		if(j.getRacistTag() == -1) {
+			j.setRacistTag(0);
+		}
 		if(j.getInapprTag() == -1) { // not set jet
 			j.setInapprTag(0);
 		}
+		
 		
 	}
 
@@ -187,73 +281,42 @@ public class Filter {
 	 * 
 	 * @return
 	 */
-	private ArrayList<String> initInappWords() {
-		ArrayList<String> inappWords = new ArrayList<String>();
-		inappWords.add(" sex");
-		inappWords.add(" erection "); inappWords.add(" boner "); inappWords.add(" hard on ");
-		inappWords.add(" pussy "); inappWords.add(" pussies "); inappWords.add(" pussy");
-		inappWords.add(" genital"); 
-		inappWords.add(" gay"); 
-		inappWords.add(" lesbian"); inappWords.add(" lesbo "); inappWords.add(" lezzie ");
-		inappWords.add(" fuck"); inappWords.add(" fucking "); inappWords.add("fuck ");
-		inappWords.add("fucker "); inappWords.add(" fucker");
-		inappWords.add(" nigger ");inappWords.add(" niggers "); inappWords.add(" jigaboo ");
-		inappWords.add(" negro "); inappWords.add(" nigaboo "); inappWords.add(" nigga ");
-		inappWords.add(" niglet "); inappWords.add(" nigger");
-		inappWords.add(" jungle bunny "); inappWords.add(" junglebunny ");
-		inappWords.add(" porch monkey "); inappWords.add(" porchmonkey ");
-		inappWords.add(" blow job"); inappWords.add(" blowjob ");
-		inappWords.add(" cunt"); inappWords.add(" cunt "); inappWords.add(" cunts ");
-		inappWords.add(" viagra"); 
-		inappWords.add(" suck");
-		inappWords.add(" asshole");
-		inappWords.add(" make love ");
-		inappWords.add(" masturbating"); inappWords.add(" jerk off ");
-		inappWords.add(" blonde");
-		inappWords.add("yo mama"); inappWords.add("yo's mama"); 
-		inappWords.add("your momma"); inappWords.add("ya mamma");
-		inappWords.add("yo mamma"); inappWords.add("yo' mama");
-		inappWords.add("yo momma"); inappWords.add("ur mamma");
-		inappWords.add(" anus ");
-		inappWords.add(" arse "); inappWords.add(" arsehole ");
-		inappWords.add(" ass");
-		inappWords.add(" beaner "); inappWords.add(" spic "); inappWords.add(" spick ");
-		inappWords.add(" wetback ");
-		inappWords.add(" bitch");
-		inappWords.add(" camel toe "); inappWords.add(" queef ");
-		inappWords.add(" chinc "); inappWords.add(" chink "); inappWords.add(" gook ");
-		inappWords.add(" gringo ");
-		inappWords.add(" dago "); inappWords.add(" deggo "); inappWords.add(" guido ");
-		inappWords.add(" dick"); inappWords.add(" dildo ");
-		inappWords.add(" dipshit ");
-		inappWords.add(" dumbass "); inappWords.add(" dumass "); inappWords.add(" dumb ass");
-		inappWords.add(" fag ");
-		inappWords.add(" fallatio "); inappWords.add(" wop ");
-		inappWords.add(" heeb ");
-		inappWords.add(" honky "); inappWords.add(" honkey ");
-		inappWords.add(" humping "); inappWords.add(" handjob ");
-		inappWords.add(" jackass "); inappWords.add(" jackasses ");
-		inappWords.add(" kike "); inappWords.add(" kyke ");
-		inappWords.add(" kooch "); inappWords.add(" kootch ");
-		inappWords.add(" kraut "); inappWords.add(" krauts ");
-		inappWords.add(" kunt ");
-		inappWords.add(" lardass "); inappWords.add(" lardasses ");
-		inappWords.add(" mick ");
-		inappWords.add(" mothafucka ");
-		inappWords.add(" muff "); inappWords.add(" muffdiver ");
-		inappWords.add(" nut sack "); inappWords.add(" nutsack ");
-		inappWords.add(" paki "); 
-		inappWords.add(" pecker "); inappWords.add(" peckerhead ");
-		inappWords.add(" penis "); inappWords.add(" penis");
-		inappWords.add(" queer "); inappWords.add(" queer");
-		inappWords.add(" ruski "); inappWords.add(" ruskis ");
-		inappWords.add(" slut "); inappWords.add(" slut");
-		inappWords.add(" splooge "); inappWords.add(" ejaculate");
-		inappWords.add(" spook ");
-		inappWords.add(" vagina "); inappWords.add(" vag ");
-		inappWords.add(" wank ");
-		inappWords.add(" whore "); inappWords.add(" whore");
-		return inappWords;
+	private ArrayList<String> initSexWords() {
+		ArrayList<String> SWs = new ArrayList<String>();
+		SWs.add(" sex");
+		SWs.add(" erection "); SWs.add(" boner "); SWs.add(" hard on ");
+		SWs.add(" pussy "); SWs.add(" pussies "); SWs.add(" pussy");
+		SWs.add(" genital"); 	
+		SWs.add(" fuck"); SWs.add(" fucking "); SWs.add("fuck ");
+		SWs.add("fucker "); SWs.add(" fucker");
+		SWs.add(" blow job"); SWs.add(" blowjob ");
+		SWs.add(" cunt"); SWs.add(" cunt "); SWs.add(" cunts ");
+		SWs.add(" viagra"); 
+		SWs.add(" suck");	
+		SWs.add(" make love ");
+		SWs.add(" masturbating"); SWs.add(" jerk off ");	
+		SWs.add(" anus ");
+		SWs.add(" arse "); SWs.add(" arsehole ");
+		SWs.add(" ass");
+		SWs.add(" wetback ");		
+		SWs.add(" camel toe "); SWs.add(" queef ");
+		SWs.add(" dick"); SWs.add(" dildo ");
+		SWs.add(" dipshit ");		
+		SWs.add(" humping "); SWs.add(" handjob ");		
+		SWs.add(" kooch "); SWs.add(" kootch ");
+		SWs.add(" kraut "); SWs.add(" krauts ");
+		SWs.add(" kunt ");
+		SWs.add(" muff "); SWs.add(" muffdiver ");
+		SWs.add(" nut sack "); SWs.add(" nutsack ");
+		SWs.add(" pecker "); SWs.add(" peckerhead ");
+		SWs.add(" penis "); SWs.add(" penis");
+		SWs.add(" queer "); SWs.add(" queer");	
+		SWs.add(" splooge "); SWs.add(" ejaculate");
+		SWs.add(" spook ");
+		SWs.add(" vagina "); SWs.add(" vag ");
+		SWs.add(" wank ");
+		
+		return SWs;
 	}
 	
 	/**

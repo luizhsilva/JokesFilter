@@ -25,6 +25,9 @@ public class Joke {
 	private int englishTag;
 	private int sportTag;
 	private int lawyerTag;
+	private int offensiveTag;
+	private int racistTag;
+	private int sexTag;
 	
 	
 	public Joke(String content) {
@@ -36,6 +39,9 @@ public class Joke {
 		
 		this.englishTag = -1;
 		this.inapprTag = -1;
+		this.offensiveTag = -1;
+		this.sexTag = -1;
+		this.racistTag = -1;
 		this.lawyerTag = -1;
 		this.poliTag = -1;
 		this.sportTag = -1;
@@ -97,6 +103,31 @@ public class Joke {
 	public void setLawyerTag(int lawyerTag) {
 		this.lawyerTag = lawyerTag;
 	}
+
+	public int getOffensiveTag() {
+		return offensiveTag;
+	}
+
+	public void setOffensiveTag(int offensiveTag) {
+		this.offensiveTag = offensiveTag;
+	}
+
+	public int getRacistTag() {
+		return racistTag;
+	}
+
+	public void setRacistTag(int racistTag) {
+		this.racistTag = racistTag;
+	}
+
+	public int getSexTag() {
+		return sexTag;
+	}
+
+	public void setSexTag(int sexTag) {
+		this.sexTag = sexTag;
+	}
+
 
 	
 	

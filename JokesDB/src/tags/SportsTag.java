@@ -57,7 +57,9 @@ public class SportsTag implements Tag {
 		
 		for(String str : this.jokes) {
 			StringBuffer oneline = new StringBuffer();
+			oneline.append("[");
 			oneline.append(str);
+			oneline.append("]");
 			oneline.append("\r");
 			bw.write(oneline.toString());
 			bw.newLine();
